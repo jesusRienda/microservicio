@@ -19,14 +19,14 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/listas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ListasController {
 	
 	private ListasService listasService;
 	
 	@Autowired
-	public ListasController() {
-		
+	public ListasController(ListasService listasService) {
+		this.listasService = listasService;
 	}
 	
     @GetMapping
