@@ -37,7 +37,7 @@ public class ListasController {
             @ApiParam(value = "parametros de filtrado", required = true) @RequestParam String gender,
             @ApiParam(value = "parametros de filtrado", required = true) @RequestParam String artist) {
 
-        return listasService.findMusicLists();
+        return listasService.findMusicLists(gender, artist);
     }
     
     @PostMapping
@@ -47,7 +47,7 @@ public class ListasController {
     public Long saveList(
             @ApiParam(value = "lista musical", required = true) @RequestBody ListaDTO listaMusical) {
 
-        return listasService.saveMusicList();
+        return listasService.saveMusicList(listaMusical);
 
     }
 }

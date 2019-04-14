@@ -12,7 +12,7 @@ public interface ListasService {
      * @param
      * @return
      */
-	List<ListaDTO> findMusicLists();
+	List<ListaDTO> findMusicLists(String gender, String artist);
 	
     /**
      * Guarda una lista musical en BD
@@ -20,5 +20,5 @@ public interface ListasService {
      * @param 
      * @return
      */
-	Long saveMusicList();
+	Long saveMusicList(ListaDTO listaMusical);
 }
