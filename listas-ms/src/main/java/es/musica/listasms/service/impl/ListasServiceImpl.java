@@ -1,5 +1,6 @@
 package es.musica.listasms.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -19,8 +20,21 @@ public class ListasServiceImpl implements ListasService{
 	
 	@Override
 	public List<ListaDTO> findMusicLists(String gender, String artist) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ListaDTO> listasMusicales= new ArrayList<>();
+		List<ListaBean> listaFiltrada = null;
+		if(gender != null) {
+			listaFiltrada = listasDao.findByTracksGender(gender);
+		} else if (artist != null) {
+			
+		}
+		for (ListaBean listaBean : listaFiltrada) {
+			ListaDTO lista = new ListaDTO();
+			BeanUtils.copyProperties(listaBean, lista);
+			listasMusicales.add(lista);
+
+		}
+
+		return listasMusicales;
 	}
 
 	@Override
