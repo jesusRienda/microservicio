@@ -22,30 +22,29 @@ public class ListasServiceImpl implements ListasService{
 	public List<ListaDTO> findMusicLists(String gender, String artist) {
 		List<ListaDTO> listasMusicales= new ArrayList<>();
 		List<ListaBean> listaFiltrada = null;
-		if(gender != null) {
+		if(gender != null && artist != null) {
+			listaFiltrada = listasDao.findByTracksGenderAndTracksArtist(gender, artist);
+		} else if(gender != null) {
 			listaFiltrada = listasDao.findByTracksGender(gender);
 		} else if (artist != null) {
-			
+			listaFiltrada = listasDao.findByTracksArtist(artist);
+		} else {
+			listaFiltrada = listasDao.findAll();
 		}
 		for (ListaBean listaBean : listaFiltrada) {
 			ListaDTO lista = new ListaDTO();
 			BeanUtils.copyProperties(listaBean, lista);
 			listasMusicales.add(lista);
-
 		}
-
 		return listasMusicales;
 	}
 
 	@Override
 	public Long saveMusicList(ListaDTO listaMusical) {
-		// TODO Auto-generated method stub
 		ListaBean bean = new ListaBean();
         BeanUtils.copyProperties(listaMusical, bean);
 		ListaBean result = listasDao.save(bean);
 		return result.getListId();
 	}
-
-
 
 }

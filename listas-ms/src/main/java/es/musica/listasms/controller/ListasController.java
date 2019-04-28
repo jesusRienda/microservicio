@@ -34,8 +34,8 @@ public class ListasController {
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Error no controlado del sistema") })
     public List<ListaDTO> findList(
-            @ApiParam(value = "parametros de filtrado", required = true) @RequestParam String gender,
-            @ApiParam(value = "parametros de filtrado", required = true) @RequestParam String artist) {
+            @ApiParam(value = "parametros de filtrado", required = false) @RequestParam(required=false) String gender,
+            @ApiParam(value = "parametros de filtrado", required = false) @RequestParam(required=false) String artist) {
 
         return listasService.findMusicLists(gender, artist);
     }

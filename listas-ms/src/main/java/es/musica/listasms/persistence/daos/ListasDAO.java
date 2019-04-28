@@ -8,4 +8,8 @@ import es.musica.listasms.persistence.beans.ListaBean;
 
 public interface ListasDAO extends MongoRepository<ListaBean, Long> {
 	List<ListaBean> findByTracksGender(String gender);
+	List<ListaBean> findByTracksArtist(String artist);
+	List<ListaBean> findByTracksGenderAndTracksArtist(String gender, String artist);
+
+
 }
