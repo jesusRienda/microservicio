@@ -21,4 +21,12 @@ public interface ListasService {
      * @return
      */
 	Long saveMusicList(ListaDTO listaMusical);
+	
+    /**
+     * Devuelve las listas que recomienda a un usuario
+     * 
+     * @param
+     * @return
+     */
+	List<ListaDTO> findRecommendedListsUser(Long userId);
 }

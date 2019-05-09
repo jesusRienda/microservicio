@@ -2,13 +2,18 @@ package es.musica.listasms.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.musica.listasms.dto.ListaDTO;
@@ -49,5 +54,15 @@ public class ListasController {
 
         return listasService.saveMusicList(listaMusical);
 
+    }
+    
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "Find recommended lists user", response = List.class)
+    @ApiResponses(value = { @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Error no controlado del sistema") })
+    public List<ListaDTO> findRecommendedList(@PathVariable Long userId) {
+
+        return listasService.findRecommendedListsUser(userId);
     }
 }

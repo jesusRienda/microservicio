@@ -11,5 +11,6 @@ public interface ListasDAO extends MongoRepository<ListaBean, Long> {
 	List<ListaBean> findByTracksArtist(String artist);
 	List<ListaBean> findByTracksGenderAndTracksArtist(String gender, String artist);
 
+	List<ListaBean> findByTracksGenderIn(List<String> genders);
 
 }
