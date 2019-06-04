@@ -56,6 +56,17 @@ public class ListasController {
 
     }
     
+    @PostMapping("/batch")
+    @ApiOperation(value = "Save lists", response = Long.class)
+    @ApiResponses(value = { @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Error no controlado del sistema") })
+    public void saveLists(
+            @ApiParam(value = "listas musicales", required = true) @RequestBody List<ListaDTO> listasMusicales) {
+    	listasMusicales.stream().forEach(list -> {
+    		listasService.saveMusicList(list);
+    	});
+    }
+    
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Find recommended lists user", response = List.class)
