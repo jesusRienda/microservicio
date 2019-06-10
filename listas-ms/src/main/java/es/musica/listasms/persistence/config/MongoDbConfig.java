@@ -27,7 +27,7 @@ public class MongoDbConfig {
 	@Bean
 	public MongoDbFactory mongoDbFactory() {
 
-		return new SimpleMongoDbFactory(new MongoClient(new MongoClientURI("mongodb://127.0.0.1:27017/")), "bc_listas");
+		return new SimpleMongoDbFactory(new MongoClient(new MongoClientURI("mongodb://bc-listas:CGiaerIs6DsXv3cxymG4mAhX2x1zeIO3UEdHq3RqfwSSlIqRE7WUcLv0WUkF8bCOpjGP0ce24kFEWNDOGNOq4A==@bc-listas.documents.azure.com:10255/?ssl=true&replicaSet=globaldb")), "bc_listas");
 	}
 
     public @Bean(name = "mongoTemplate") MongoTemplate getMongoTemplate() throws UnknownHostException {
