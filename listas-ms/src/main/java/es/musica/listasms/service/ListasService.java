@@ -28,5 +28,5 @@ public interface ListasService {
      * @param
      * @return
      */
-	List<ListaDTO> findRecommendedListsUser(Long userId);
+	List<ListaDTO> findRecommendedListsUser(String userId);
 }

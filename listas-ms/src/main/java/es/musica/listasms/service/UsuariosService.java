@@ -13,7 +13,7 @@ public interface UsuariosService {
      * @param
      * @return
      */
-	List<CancionDTO> findUserTracks(Long userId);
+	List<CancionDTO> findUserTracks(String userId);
 	
     /**
      * Guarda un usuario en BD
@@ -21,5 +21,22 @@ public interface UsuariosService {
      * @param 
      * @return
      */
-	Long saveUser(UsuarioDTO usuario);
+	String saveUser(UsuarioDTO usuario);
+	
+    /**
+     * Devuelve si existe algun usuario con el id pasado por parametro
+     * 
+     * @param userId
+     * @return
+     */
+	Boolean existeUser(String userId);
+	
+    /**
+     * Devuelve todos los usuarios guardados en bbdd
+     * 
+     * @param
+     * @return
+     */
+	List<UsuarioDTO> findAllUsers();
+
 }

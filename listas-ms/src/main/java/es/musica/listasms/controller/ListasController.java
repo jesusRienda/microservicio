@@ -72,7 +72,7 @@ public class ListasController {
     @ApiOperation(value = "Find recommended lists user", response = List.class)
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Error no controlado del sistema") })
-    public List<ListaDTO> findRecommendedList(@PathVariable Long userId) {
+    public List<ListaDTO> findRecommendedList(@PathVariable String userId) {
 
         return listasService.findRecommendedListsUser(userId);
     }

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Document(collection = "usuarios")
 public class UsuarioBean {
-	private Long userId;
+	private String userId;
 	private String name;
 	private List<CancionBean> tracks;
 }

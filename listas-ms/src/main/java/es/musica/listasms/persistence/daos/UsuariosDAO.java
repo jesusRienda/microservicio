@@ -9,8 +9,8 @@ import es.musica.listasms.persistence.beans.CancionBean;
 import es.musica.listasms.persistence.beans.UsuarioBean;
 
 public interface UsuariosDAO extends MongoRepository<UsuarioBean, Long> {
-	List<CancionBean> findTracksByUserId(Long userId);
-	Optional<UsuarioBean> findByUserId(Long userId);
+	List<CancionBean> findTracksByUserId(String userId);
+	Optional<UsuarioBean> findByUserId(String userId);
 
 	
 }

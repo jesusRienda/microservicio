@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UsuarioDTO {
-	private Long userId;
+	private String userId;
 	private String name;
 	private List<CancionDTO> tracks;
 }
