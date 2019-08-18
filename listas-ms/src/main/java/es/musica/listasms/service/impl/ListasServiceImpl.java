@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.musica.listasms.dto.ListaDTO;
+import es.musica.listasms.persistence.beans.CancionBean;
 import es.musica.listasms.persistence.beans.ListaBean;
 import es.musica.listasms.persistence.beans.UsuarioBean;
 import es.musica.listasms.persistence.daos.ListasDAO;
@@ -64,7 +65,10 @@ public class ListasServiceImpl implements ListasService{
 		Optional<UsuarioBean> usuario = usuariosDAO.findByUserId(userId);
 		if(usuario.isPresent()) {
 			//Obtenemos las listas de reproduccion que contienen alguna cancion que ha escuchado el usuario
-			List<ListaBean> listasUsuario = listasDao.findByTracksIn(usuario.get().getTracks());
+			
+			List<ListaBean> listasUsuario = listasDao.findByTracksTrackUriIn(usuario.get().getTracks().stream().map(CancionBean :: getTrackUri).collect(Collectors.toList()));
+
+			//List<ListaBean> listasUsuario = listasDao.findByTracksIn(usuario.get().getTracks());
 			//Nos quedamos con las listas que contienen al menos dos canciones del usuario
 			for (ListaBean listaBean : listasUsuario) {
 				int count = listaBean.getTracks().stream()

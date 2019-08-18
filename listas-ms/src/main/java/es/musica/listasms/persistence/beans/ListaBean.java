@@ -15,12 +15,12 @@ public class ListaBean {
 	private String name;
 	private Boolean collaborative;
 	private Integer pid;
-	private Integer modified_at;
-	private Integer num_tracks;
-	private Integer num_albums;
-	private Integer num_followers;
-	private Integer num_edits;
-	private Integer duration_ms;
-	private Integer num_artists;
+	private Integer modifiedAt;
+	private Integer numTracks;
+	private Integer numAlbums;
+	private Integer numFollowers;
+	private Integer numEdits;
+	private Integer durationMs;
+	private Integer numArtists;
 	private List<CancionBean> tracks;
 }

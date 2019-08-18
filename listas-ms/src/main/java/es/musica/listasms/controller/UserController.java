@@ -52,7 +52,7 @@ public class UserController {
             @ApiResponse(code = 500, message = "Error no controlado del sistema") })
     public String saveUser(
             @ApiParam(value = "usuario", required = true) @RequestBody UsuarioDTO usuario) {
-    	if(usuariosService.existeUser(usuario.getUserId())) {
+    	if(!usuariosService.existeUser(usuario.getUserId())) {
             return usuariosService.saveUser(usuario);
     	} else {
     		throw new ListasException("400","El usuario que intenta crear ya existe");

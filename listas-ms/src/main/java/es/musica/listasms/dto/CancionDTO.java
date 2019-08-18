@@ -8,11 +8,11 @@ import lombok.Setter;
 public class CancionDTO {
 	
 	private Long pos;
-	private String artist_name;
-	private String track_uri;
-	private String artist_uri;
-	private String track_name;
-	private String album_uri;
-	private Integer duration_ms;
-	private String album_name;
+	private String artistName;
+	private String trackUri;
+	private String artistUri;
+	private String trackName;
+	private String albumUri;
+	private Integer durationMs;
+	private String albumName;
 }
