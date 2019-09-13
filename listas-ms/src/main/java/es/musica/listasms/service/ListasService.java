@@ -7,14 +7,6 @@ import es.musica.listasms.dto.ListaDTO;
 public interface ListasService {
 	
     /**
-     * Devuelve las listas musicales que cumplen con los parametros de filtrado
-     * 
-     * @param
-     * @return
-     */
-	List<ListaDTO> findMusicLists(String gender, String artist);
-	
-    /**
      * Guarda una lista musical en BD
      * 
      * @param 
@@ -28,5 +20,5 @@ public interface ListasService {
      * @param
      * @return
      */
-	List<ListaDTO> findRecommendedListsUser(String userId);
+	List<ListaDTO> findRecommendedListsUser(String userI, Integer trackContain);
 }

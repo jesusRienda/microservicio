@@ -33,17 +33,6 @@ public class ListasController {
 	public ListasController(ListasService listasService) {
 		this.listasService = listasService;
 	}
-	
-    @GetMapping
-    @ApiOperation(value = "Find lists", response = List.class)
-    @ApiResponses(value = { @ApiResponse(code = 400, message = "Bad request"),
-            @ApiResponse(code = 500, message = "Error no controlado del sistema") })
-    public List<ListaDTO> findList(
-            @ApiParam(value = "parametros de filtrado", required = false) @RequestParam(required=false) String gender,
-            @ApiParam(value = "parametros de filtrado", required = false) @RequestParam(required=false) String artist) {
-
-        return listasService.findMusicLists(gender, artist);
-    }
     
     @PostMapping
     @ApiOperation(value = "Save list", response = Long.class)
@@ -72,8 +61,8 @@ public class ListasController {
     @ApiOperation(value = "Find recommended lists user", response = List.class)
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Error no controlado del sistema") })
-    public List<ListaDTO> findRecommendedList(@PathVariable String userId) {
+    public List<ListaDTO> findRecommendedList(@PathVariable String userId, @PathVariable Integer trackContain) {
 
-        return listasService.findRecommendedListsUser(userId);
+        return listasService.findRecommendedListsUser(userId, trackContain);
     }
 }

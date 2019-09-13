@@ -16,7 +16,9 @@ import es.musica.listasms.persistence.beans.UsuarioBean;
 import es.musica.listasms.persistence.daos.ListasDAO;
 import es.musica.listasms.persistence.daos.UsuariosDAO;
 import es.musica.listasms.service.ListasService;
+import lombok.extern.slf4j.Slf4j;
 @Service
+@Slf4j
 public class ListasServiceImpl implements ListasService{
 	
 	
@@ -25,50 +27,30 @@ public class ListasServiceImpl implements ListasService{
 	
 	@Autowired
 	private UsuariosDAO usuariosDAO;
-	
-	@Override
-	public List<ListaDTO> findMusicLists(String gender, String artist) {
-		List<ListaDTO> listasMusicales= new ArrayList<>();
-//		List<ListaBean> listaFiltrada = null;
-//		if(gender != null && artist != null) {
-//			listaFiltrada = listasDao.findByTracksGenderAndTracksArtist(gender, artist);
-//		} else if(gender != null) {
-//			listaFiltrada = listasDao.findByTracksGender(gender);
-//		} else if (artist != null) {
-//			listaFiltrada = listasDao.findByTracksArtist(artist);
-//		} else {
-//			listaFiltrada = listasDao.findAll();
-//		}
-//		for (ListaBean listaBean : listaFiltrada) {
-//			ListaDTO lista = new ListaDTO();
-//			BeanUtils.copyProperties(listaBean, lista);
-//			listasMusicales.add(lista);
-//		}
-		return listasMusicales;
-	}
 
 	@Override
 	public Long saveMusicList(ListaDTO listaMusical) {
 		ListaBean bean = new ListaBean();
-		//TODO:save all para evitar RUES cosmo
-		//List<ListaBean> beans = new ArrayList<>();
-		//listasDao.saveAll(beans);
-
-        BeanUtils.copyProperties(listaMusical, bean);
-		ListaBean result = listasDao.save(bean);
-		return result.getListId();
+		//Comprobamos si la lista ya existe en la base de datos para no volver a meterla
+		Optional<ListaBean> existeLista = listasDao.findByPid(listaMusical.getPid());
+		if (existeLista.isPresent()) {
+			log.info("La lista que esta intentando crear ya existe");
+		} else {
+			BeanUtils.copyProperties(listaMusical, bean);
+			ListaBean result = listasDao.save(bean);
+			return result.getListId();
+		}
+		return null;
 	}
 
 	@Override
-	public List<ListaDTO> findRecommendedListsUser(String userId) {
+	public List<ListaDTO> findRecommendedListsUser(String userId, Integer trackContain) {
+		Integer numeroCancionesACoincidir = trackContain != null ? trackContain : 2;
 		List<ListaDTO> listasRecomendadas= new ArrayList<>();
 		Optional<UsuarioBean> usuario = usuariosDAO.findByUserId(userId);
 		if(usuario.isPresent()) {
 			//Obtenemos las listas de reproduccion que contienen alguna cancion que ha escuchado el usuario
-			
 			List<ListaBean> listasUsuario = listasDao.findByTracksTrackUriIn(usuario.get().getTracks().stream().map(CancionBean :: getTrackUri).collect(Collectors.toList()));
-
-			//List<ListaBean> listasUsuario = listasDao.findByTracksIn(usuario.get().getTracks());
 			//Nos quedamos con las listas que contienen al menos dos canciones del usuario
 			for (ListaBean listaBean : listasUsuario) {
 				int count = listaBean.getTracks().stream()
@@ -76,15 +58,13 @@ public class ListasServiceImpl implements ListasService{
 			    .collect(Collectors
 			    .toSet()).size();
 				
-				if(count>1) {
+				if(count>= numeroCancionesACoincidir) {
 					ListaDTO lista = new ListaDTO();
 					BeanUtils.copyProperties(listaBean, lista);
 					listasRecomendadas.add(lista);
 				}
 			}
 		}
-		
 		return listasRecomendadas;
 	}
-
 }
