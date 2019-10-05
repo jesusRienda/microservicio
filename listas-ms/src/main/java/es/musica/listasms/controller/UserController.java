@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping(path = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/usuarios")
 public class UserController {
 	
 	private UsuariosService usuariosService;
@@ -36,7 +36,7 @@ public class UserController {
 		this.usuariosService = usuariosService;
 	}
 	
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @ApiOperation(value = "Find tracks", response = List.class)
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Bad request"),
@@ -46,7 +46,7 @@ public class UserController {
         return usuariosService.findUserTracks(userId);
     }
     
-    @PutMapping
+    @PutMapping(produces = MediaType.ALL_VALUE)
     @ApiOperation(value = "Save user", response = String.class)
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Error no controlado del sistema") })
@@ -60,7 +60,7 @@ public class UserController {
     }
     
     @GetMapping
-    @ApiOperation(value = "Get all users", response = List.class)
+    @ApiOperation(value = "Get all users", response = List.class, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Error no controlado del sistema") })
 	public List<UsuarioDTO> getAllUsers() {

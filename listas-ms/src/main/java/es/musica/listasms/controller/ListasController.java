@@ -56,7 +56,7 @@ public class ListasController {
     	});
     }
     
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{userId}/{trackContain}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Find recommended lists user", response = List.class)
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Bad request"),

@@ -49,12 +49,14 @@ public class ListasServiceImpl implements ListasService{
 		List<ListaDTO> listasRecomendadas= new ArrayList<>();
 		Optional<UsuarioBean> usuario = usuariosDAO.findByUserId(userId);
 		if(usuario.isPresent()) {
+			UsuarioBean usuarioBean = usuario.get();
 			//Obtenemos las listas de reproduccion que contienen alguna cancion que ha escuchado el usuario
-			List<ListaBean> listasUsuario = listasDao.findByTracksTrackUriIn(usuario.get().getTracks().stream().map(CancionBean :: getTrackUri).collect(Collectors.toList()));
+			List<ListaBean> listasUsuario = listasDao.findByTracksTrackUriIn(usuarioBean.getTracks().stream().map(CancionBean :: getTrackUri).collect(Collectors.toList()));
 			//Nos quedamos con las listas que contienen al menos dos canciones del usuario
 			for (ListaBean listaBean : listasUsuario) {
-				int count = listaBean.getTracks().stream()
-			    .filter(usuario.get().getTracks()::contains)
+				int count = listaBean.getTracks().stream().map(CancionBean:: getTrackUri)
+			    .filter(usuarioBean.getTracks().stream().map(CancionBean:: getTrackUri).collect(Collectors
+					    .toSet())::contains)
 			    .collect(Collectors
 			    .toSet()).size();
 				
